@@ -1,0 +1,28 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/bootstrap.min.css' %}" />
+
+<div class="container">
+    <br />
+    <h1>{{ question }}</h1>
+    <hr />
+
+{% if error_message %}
+    <div class="alert alert-danger">
+        {{ error_message }}
+    </div>
+{% endif %}
+
+<form action="{% url 'polls:vote' question.id %}" method="POST">
+    {% csrf_token %}
+    <div class="form-check">
+        {% for choice in question.choice_set.all %}
+            <input class="form-check-input" type="radio" name="choice" id="choice-{{ forloop.counter }}" value="{{ choice.id }}" />
+            <label class="form-check-label" for="choice-{{ forloop.counter }}">{{ choice }}</label>
+            <br />
+        {% endfor %}
+    </div>
+    <br />
+    <input class="btn btn-primary" type="submit" value="Votar" />
+    <a class="btn btn-outline-danger" href="/polls/">Cancelar</a>
+</form>
+</div>

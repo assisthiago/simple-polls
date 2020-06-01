@@ -1,0 +1,23 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/bootstrap.min.css' %}" />
+
+<div class="container">
+    <br />
+    <h1>Enquetes</h1>
+    <hr />
+
+    {% if latest_question_list %}
+        <div class="list-group">
+            {% for question in latest_question_list %}
+                <a class="list-group-item list-group-item-action flex-colum align items-start" href="{% url 'polls:detail' question.id %}">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ question }}</h5>
+                        <small>{{ question.pub_date }}</small>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Nenhuma enquente disponível.</p>
+    {% endif %}
+</div>

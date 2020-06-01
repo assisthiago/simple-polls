@@ -1,0 +1,23 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/bootstrap.min.css' %}" />
+
+<div class="container">
+    <br />
+    <h1>{{ question }}</h1>
+    <hr />
+
+    <ul class="list-group">
+        {{question.choices}}
+        {% for choice in question.choice_set.all %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ choice }}
+                <span class="badge badge-primary badge-pill">
+                    {{ choice.votes }} voto{{ choice.votes|pluralize }}
+                </span>
+            </li>
+        {% endfor %}
+    </ul>
+    <br />
+    <a class="btn btn-outline-primary" href="{% url 'polls:detail' question.id %}">Votar novamente</a>
+    <a class="btn btn-dark" href="{% url 'polls:index' %}">Menu principal</a>
+</div>
